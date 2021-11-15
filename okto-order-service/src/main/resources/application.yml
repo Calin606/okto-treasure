@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shopmedb
+    username: udemy
+    password: teaching12
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: POSTGRESQL
+    generate-ddl: true
+
+server:
+  port: 8081
