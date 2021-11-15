@@ -14,3 +14,6 @@ spring:
     show-sql: true
     database: POSTGRESQL
     generate-ddl: true
+
+server:
+  port: 8081
