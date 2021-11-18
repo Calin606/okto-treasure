@@ -28,6 +28,12 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '3.0.3'
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-config-client
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-config-client', version: '3.0.4'
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bootstrap
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.0.4'
+
+
 }
 
 test {
