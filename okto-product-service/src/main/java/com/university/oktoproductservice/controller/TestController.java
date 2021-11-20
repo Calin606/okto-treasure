@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class TestController {
 
-    @Value("${test: name}")
+    @Value("${test.name}")
     private String name;
 
     @GetMapping
