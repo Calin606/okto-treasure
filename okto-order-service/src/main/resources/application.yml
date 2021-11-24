@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/shopmedb
-    username: udemy
-    password: teaching12
+    url: jdbc:postgresql://localhost:5432/okto_dev
+    username:
+    password:
   jpa:
     properties:
       hibernate:
