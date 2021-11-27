@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: 'true'
+          lower-case-service-id: 'true'
+      routes[0]:
+        id: okto-product-service
+        uri: lb://okto-product-service
+        predicates[0]: Path=/api/product
+      routes[1]:
+        id: okto-order-service
+        predicates[0]: Path=/api/order
+        uri: lb://order-service
+      default-filters: TokenRelay
+    loadbalancer:
+      ribbon:
+        enabled: 'false'
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
+        registration:
+          spring-cloud-gateway-client:
+            client-secret: 25922ea1-ad16-4fd7-8ad4-7345e6bd4df4
+            client-id: spring-cloud-gateway-client
+            provider: keycloak
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/spring-cloud-gateway-client
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/auth/realms/microservices-realm/protocol/openid-connect/certs
+  application:
+    name: okto-api-gateway
+eureka:
+  instance:
+    instance-id: ${spring.application.name}-${random.uuid}
