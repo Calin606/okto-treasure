@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: okto-inventory-service
+  cloud:
+    vault:
+      scheme: http
+      authentication: TOKEN
+      host: localhost
+      token: s.Ji9POTZgZR6ZNFc2cizx6ZQf
+      port: '8200'
+      application-name: inventory-service
+    config:
+      uri: http://localhost:8888
+  rabbitmq:
+    password: guest
+    port: '5672'
+    host: localhost
+    username: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+server:
+  port: '8183'
