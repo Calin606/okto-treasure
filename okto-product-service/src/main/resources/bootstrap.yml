@@ -1,17 +1,24 @@
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27817/product-service
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27817/product-service
   application:
     name: okto-product-service
-#  cloud:
-#    config:
-#      uri: http://localhost:8888
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
+  cloud:
+    config:
+      uri: http://localhost:8888
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      authentication: TOKEN
+      token: s.cJdMcl33gKk8L99BA7YqIIVy
+      application-name: okto-product-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 #  security:
 #    oauth2:
 #      resourceserver:
@@ -19,13 +26,13 @@ spring:
 #          issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
 
 server:
-  port: 8099
-#eureka:
-#  instance:
-#    instance-id: ${spring.application.name}:${random.uuid}
+  port: 0
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
 
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
