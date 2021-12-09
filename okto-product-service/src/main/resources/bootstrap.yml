@@ -12,18 +12,18 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.cJdMcl33gKk8L99BA7YqIIVy
+      token: s.TaS4G3dYQObIpDJBOYdUZPJ0
       application-name: okto-product-service
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
     password: guest
-#  security:
-#    oauth2:
-#      resourceserver:
-#        jwt:
-#          issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
 
 server:
   port: 0
