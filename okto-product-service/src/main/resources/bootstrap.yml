@@ -1,7 +1,4 @@
 spring:
-#  data:
-#    mongodb:
-#      uri: mongodb://localhost:27817/product-service
   application:
     name: okto-product-service
   cloud:
