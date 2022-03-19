@@ -1,9 +1,47 @@
 spring:
+  application:
+    name: okto-order-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/okto_dev
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: POSTGRESQL
+    generate-ddl: true
   cloud:
     config:
       uri: http://localhost:8888
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      authentication: TOKEN
+      token: s.jxGHo7kKIsHligJQCvrYOQNE
+      application-name: okto-order-service
+    loadbalancer:
+      ribbon:
+        enabled: 'false'
   rabbitmq:
     host: localhost
     port: 15672
     username: guest
     password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+
+server:
+  port: 0
