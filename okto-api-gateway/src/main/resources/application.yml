@@ -11,10 +11,10 @@ spring:
         id: okto-product-service
         uri: lb://okto-product-service # porturile nu sunt fixe
         predicates[0]: Path=/api/product #cand un client face un request aici prin api gateway va fi redirectat la product service
-#      routes[1]:
-#        id: okto-order-service
-#        predicates[0]: Path=/api/order
-#        uri: lb://okto-order-service
+      routes[1]:
+        id: okto-order-service
+        predicates[0]: Path=/api/order
+        uri: lb://okto-order-service
       default-filters: TokenRelay
     loadbalancer:
       ribbon:

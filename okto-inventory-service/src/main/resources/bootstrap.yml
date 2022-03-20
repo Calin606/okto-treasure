@@ -8,7 +8,7 @@ spring:
       scheme: http
       authentication: TOKEN
       host: localhost
-      token: s.QOrJ9smB9VLbDGEtIf6D8M3E
+      token: s.x9mQwmRnqoZjYQKjR7UacL89
       port: '8200'
       application-name: ${spring.application.name}
   rabbitmq:

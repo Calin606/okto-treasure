@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
 
 @RestController
 @RequestMapping("/api/order")
@@ -25,47 +24,24 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private final InventoryClient inventoryClient;
 //    private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
-    private final StreamBridge streamBridge;
-    private final ExecutorService traceableExecutorService;
 
     @PostMapping
     public String placeOrder(@RequestBody OrderDto orderDto) {
-//        circuitBreakerFactory.configureExecutorService(traceableExecutorService);
-//        Resilience4JCircuitBreaker circuitBreaker = circuitBreakerFactory.create("inventory");
-//        java.util.function.Supplier<Boolean> booleanSupplier = () -> orderDto.getOrderLineItemsList().stream()
-//                .allMatch(lineItem -> {
-//                    log.info("Making Call to Inventory Service for SkuCode {}", lineItem.getSkuCode());
-//                    return inventoryClient.checkStock(lineItem.getSkuCode());
-//                });
-//        boolean productsInStock = circuitBreaker.run(booleanSupplier, throwable -> handleErrorCase());
-//
-//        if (productsInStock) {
-//            Order order = new Order();
-//            order.setOrderLineItems(orderDto.getOrderLineItemsList());
-//            order.setOrderNumber(UUID.randomUUID().toString());
-//
-//            orderRepository.save(order);
-//            log.info("Sending Order Details with Order Id {} to Notification Service", order.getId());
-//            streamBridge.send("notificationEventSupplier-out-0", MessageBuilder.withPayload(order.getId()).build());
-//            return "Order Place Successfully";
-//        } else {
-//            return "Order Failed - One of the Product in your Order is out of stock";
-//        }
 
-        boolean allProductsToStock = orderDto.getOrderLineItemsList().stream()
+        boolean allProductsInStock = orderDto.getOrderLineItemsList().stream()
                 .allMatch(orderLineItems -> inventoryClient.checkStock(orderLineItems.getSkuCode()));
-
-        if(allProductsToStock) {
+        if(allProductsInStock) {
             Order order = new Order();
             order.setOrderLineItems(orderDto.getOrderLineItemsList());
             order.setOrderNumber(UUID.randomUUID().toString());
 
             orderRepository.save(order);
 
-            return "Order Placed Successfully";
+            return "Order Place Successfully";
         } else {
-            return "Order Failed - One of the Product in your Order is out of stock";
+            return "Order failed, one of the products in the order is not in stock";
         }
+
     }
 
     private Boolean handleErrorCase() {
