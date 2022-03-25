@@ -1,16 +1,21 @@
 spring:
   application:
     name: okto-inventory-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
   cloud:
+    config:
+      uri: http://localhost:8888
     vault:
       scheme: http
       authentication: TOKEN
       host: localhost
-      token: s.Ji9POTZgZR6ZNFc2cizx6ZQf
+      token: s.VtPHFCjzQh94YIHXvJYV4Cx3
       port: '8200'
-      application-name: inventory-service
-    config:
-      uri: http://localhost:8888
+      application-name: ${spring.application.name}
   rabbitmq:
     password: guest
     port: '5672'
