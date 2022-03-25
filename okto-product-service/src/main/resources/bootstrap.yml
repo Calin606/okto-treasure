@@ -9,7 +9,7 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.x9mQwmRnqoZjYQKjR7UacL89
+      token: s.VtPHFCjzQh94YIHXvJYV4Cx3
       application-name: okto-product-service
   rabbitmq:
     host: localhost
