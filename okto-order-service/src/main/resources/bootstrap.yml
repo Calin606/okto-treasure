@@ -1,6 +1,11 @@
 spring:
   application:
     name: okto-order-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
   datasource:
     url: jdbc:postgresql://localhost:5432/okto_dev
   jpa:
@@ -22,14 +27,14 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.jxGHo7kKIsHligJQCvrYOQNE
+      token: s.VtPHFCjzQh94YIHXvJYV4Cx3
       application-name: okto-order-service
     loadbalancer:
       ribbon:
         enabled: 'false'
   rabbitmq:
     host: localhost
-    port: 15672
+    port: 5672
     username: guest
     password: guest
 
