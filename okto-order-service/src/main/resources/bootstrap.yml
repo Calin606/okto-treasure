@@ -27,11 +27,16 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.VtPHFCjzQh94YIHXvJYV4Cx3
+      token: s.jo9iWFfBUG2FlShk8aip2bvV
       application-name: okto-order-service
     loadbalancer:
       ribbon:
         enabled: 'false'
+    stream:
+      bindings:
+        notificationEventSupplier-out-0:
+          destination: notification-events
+      source: notificationEventSupplier
   rabbitmq:
     host: localhost
     port: 5672

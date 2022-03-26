@@ -27,6 +27,7 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private final InventoryClient inventoryClient;
     private final Resilience4JCircuitBreakerFactory circuitBreakerFactory;
+    private final StreamBridge streamBridge;
 
     @PostMapping
     public String placeOrder(@RequestBody OrderDto orderDto) {
@@ -42,6 +43,9 @@ public class OrderController {
             order.setOrderNumber(UUID.randomUUID().toString());
 
             orderRepository.save(order);
+
+            log.info("Sending Order Details to Notification Service");
+            streamBridge.send("notificationEventSupplier-out-0", order.getId());
 
             return "Order Place Successfully";
         } else {
