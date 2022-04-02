@@ -6,6 +6,15 @@ spring:
       bindings:
         notificationEventSupplier-in-0:
           destination: notification-events
+  sleuth:
+    circuitbreaker:
+      enabled: 'false'
+    integration:
+      enabled: 'true'
+    sampler:
+      probability: 1
+    zipkin:
+      base-url: http://localhost:9411/
 
 eureka:
   instance:
