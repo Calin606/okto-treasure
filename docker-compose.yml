@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  configuration-service:
+    build: ./okto-configuration-server
+    image: okto/configuration-server
+    ports:
+      - "8888:8888"
+  eureka-server:
+    build: ./okto-eureka-server
+    image: okto/eureka-server
+    ports:
+      - "8761:8761"
+    depends_on:
+     - configuration-service
+    links:
+      - configuration-service
+  api-gateway:
+    build: ./okto-api-gateway
+    image: okto/api-gateway
+    ports:
+      - "8080:8080"
+    depends_on: 
+      - configuration-service
+      - eureka-server
+    links: 
+      - configuration-service
+      - eureka-server
+    #   - customer-service
+    #   - bank-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_CLOUD_CONFIG_URI: http://configuration-service:8888
