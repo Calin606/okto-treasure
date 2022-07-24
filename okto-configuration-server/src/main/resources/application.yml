@@ -6,8 +6,8 @@ spring:
       server:
         git:
           uri: https://github.com/Calin606/microservices-config-server
-          username:
-          password:
+          username: Calin606
+          password: Student226728
           clone-on-start: true
 
 server:

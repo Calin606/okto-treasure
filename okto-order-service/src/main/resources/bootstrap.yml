@@ -7,7 +7,7 @@ spring:
         jwt:
           issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
   datasource:
-    url: jdbc:postgresql://localhost:5432/okto_dev
+    url: jdbc:postgresql://oktodb:5432/okto_dev
     username: university
     password: mlpoiujk09
   jpa:
@@ -24,13 +24,13 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-    vault:
-      host: localhost
-      port: 8200
-      scheme: http
-      authentication: TOKEN
-      token: s.etnjEpAqT4oRy8gaGjQYitwA
-      application-name: okto-order-service
+#    vault:
+#      host: localhost
+#      port: 8200
+#      scheme: http
+#      authentication: TOKEN
+#      token: s.fIQldUarTE55ALypdlSGCOsy
+#      application-name: okto-order-service
     loadbalancer:
       ribbon:
         enabled: 'false'
@@ -39,20 +39,20 @@ spring:
         notificationEventSupplier-out-0:
           destination: notification-events
       source: notificationEventSupplier
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-  sleuth:
-    circuitbreaker:
-      enabled: 'false'
-    integration:
-      enabled: 'true'
-    sampler:
-      probability: 1
-  zipkin:
-    base-url: http://localhost:9411/
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+#  sleuth:
+#    circuitbreaker:
+#      enabled: 'false'
+#    integration:
+#      enabled: 'true'
+#    sampler:
+#      probability: 1
+#  zipkin:
+#    base-url: http://localhost:9411/
 
 management:
   endpoints:
@@ -63,6 +63,13 @@ management:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${random.uuid}
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+  client:
+    fetchRegistry: 'true'
+    registerWithEureka: 'true'
+    service-url:
+      defaultZone: ${eureka_url:http://eureka-server:8761/eureka}
 
 server:
-  port: 0
+  port: 8901

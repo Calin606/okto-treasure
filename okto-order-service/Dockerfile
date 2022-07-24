@@ -15,11 +15,11 @@ RUN gradle clean build
 
 # actual container
 FROM adoptopenjdk/openjdk11:alpine-jre
-ENV ARTIFACT_NAME=okto-product-service-0.0.1-SNAPSHOT.jar
+ENV ARTIFACT_NAME=okto-order-service-0.0.1-SNAPSHOT.jar
 ENV APP_HOME=/usr/app/
 
 WORKDIR $APP_HOME
 COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
 
-EXPOSE 8900
+EXPOSE 8901
 ENTRYPOINT exec java -jar ${ARTIFACT_NAME}

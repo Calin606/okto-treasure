@@ -14,19 +14,81 @@ services:
      - configuration-service
     links:
       - configuration-service
-  api-gateway:
-    build: ./okto-api-gateway
-    image: okto/api-gateway
+#  api-gateway:
+#    build: ./okto-api-gateway
+#    image: okto/api-gateway
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - configuration-service
+#      - eureka-server
+#    links:
+#      - configuration-service
+#      - eureka-server
+#    #   - customer-service
+#    #   - bank-service
+#    environment:
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+#      SPRING_CLOUD_CONFIG_URI: http://configuration-service:8888
+#  product-service:
+#    build: ./okto-product-service
+#    image: okto/product-service2
+#    ports:
+#      - "8900:8900"
+#    depends_on:
+#      - configuration-service
+#      - eureka-server
+#      - mongo
+#    networks:
+#      - main-network
+  mongo:
+    image: mongo:4.4
+    container_name: mongo
+    hostname: mongo
+    restart: unless-stopped
     ports:
-      - "8080:8080"
-    depends_on: 
-      - configuration-service
-      - eureka-server
-    links: 
-      - configuration-service
-      - eureka-server
-    #   - customer-service
-    #   - bank-service
+#      - $MONGO_HOST_PORT:27017
+      - 27018:27017
     environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
-      SPRING_CLOUD_CONFIG_URI: http://configuration-service:8888
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD
+      - MONGO_INITDB_DATABASE=$MONGO_DB
+      - MONGO_DB_USERNAME=$MONGO_DB_USERNAME
+      - MONGO_DB_PASSWORD=$MONGO_DB_PASSWORD
+#    volumes:
+#      - $MONGO_DATA_HOST_PATH:/data/db/
+#      - $MONGO_LOG_HOST_PATH:/var/log/mongodb/
+#      - $MONGO_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
+    networks:
+      - main-network
+#    command: [ "--bind_ip", "0.0.0.0" ]
+  order-service:
+    build: ./okto-order-service
+    image: okto/order-service6
+    ports:
+      - "8901:8901"
+    depends_on:
+      - configuration-service
+      - eureka-server
+      - oktodb
+    links:
+      - configuration-service
+      - eureka-server
+  oktodb:
+    container_name: okto_dev
+    image: postgres:9.5
+    volumes:
+      - okto_dev:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=mlpoiujk09
+      - POSTGRES_USER=university
+      - POSTGRES_DB=okto_dev
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5423:5432
+networks:
+  main-network:
+    external:
+      name: $NETWORK_NAME
+volumes:
+  okto_dev: {}

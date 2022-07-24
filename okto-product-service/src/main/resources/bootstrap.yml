@@ -1,16 +1,24 @@
 spring:
   application:
     name: okto-product-service
+  data:
+    mongodb:
+#      uri: mongodb://localhost:27017/product-service
+    authentication-database: admin
+    auto-index-creation: true
+    host: 127.0.0.1
+    port: 27018
+    database: okto
   cloud:
     config:
       uri: http://localhost:8888
-    vault:
-      host: localhost
-      port: 8200
-      scheme: http
-      authentication: TOKEN
-      token: s.etnjEpAqT4oRy8gaGjQYitwA
-      application-name: okto-product-service
+#    vault:
+#      host: localhost
+#      port: 8200
+#      scheme: http
+#      authentication: TOKEN
+#      token: s.kfdjNuotpNkCOCs10CqMiPJe
+#      application-name: okto-product-service
   rabbitmq:
     host: localhost
     port: 5672
@@ -23,7 +31,7 @@ spring:
           issuer-uri: http://localhost:8180/auth/realms/okto-microservices-realm
 
 server:
-  port: 0
+  port: 8900
 eureka:
   instance:
     instance-id: ${spring.application.name}:${random.uuid}
