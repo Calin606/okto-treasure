@@ -1,5 +1,7 @@
 package com.university.oktouserservice.controllers;
 
+import com.university.oktouserservice.utils.BlockchainUtils;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,27 +15,22 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/simplestorage")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SimpleStorageController {
 
-    private final Web3j web3j;
-
     @Autowired
-    public SimpleStorageController() {
-        web3j = Web3j.build(new HttpService("http://127.0.0.1:8546"));
-    }
+    private final BlockchainUtils blockchainUtils;
 
     @GetMapping("/version")
     public String getVersion(){
-        Web3ClientVersion web3ClientVersion = null;
-        try {
-            web3ClientVersion = web3j.web3ClientVersion().send();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        String web3ClientVersionString = web3ClientVersion.getWeb3ClientVersion();
+        String web3ClientVersionString = blockchainUtils.getWeb3Version();
         return "Web3 client version: " + web3ClientVersionString;
+    }
+
+    @GetMapping("/transfer")
+    public String transferFunds() throws Exception {
+        return blockchainUtils.transferFunds();
     }
 
 }
