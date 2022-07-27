@@ -25,6 +25,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // https://mvnrepository.com/artifact/org.web3j/core
     implementation group: 'org.web3j', name: 'core', version: '5.0.0'
+    // https://mvnrepository.com/artifact/org.webjars.npm/openzeppelin__contracts
+    implementation group: 'org.webjars.npm', name: 'openzeppelin__contracts', version: '4.4.1'
+
 }
 
 dependencyManagement {
