@@ -29,7 +29,7 @@ spring:
       port: 8200
       scheme: http
       authentication: TOKEN
-      token: s.etnjEpAqT4oRy8gaGjQYitwA
+      token: s.E99T0WmXvtzRXamiEUy49mBh
       application-name: okto-order-service
     loadbalancer:
       ribbon:
