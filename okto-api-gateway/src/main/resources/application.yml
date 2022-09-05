@@ -9,8 +9,8 @@ spring:
           lower-case-service-id: 'true'
       routes[0]:
         id: okto-product-service
-        uri: lb://okto-product-service # porturile nu sunt fixe
-        predicates[0]: Path=/api/product #cand un client face un request aici prin api gateway va fi redirectat la product service
+        uri: lb://okto-product-service
+        predicates[0]: Path=/api/product
       routes[1]:
         id: okto-order-service
         predicates[0]: Path=/api/order
