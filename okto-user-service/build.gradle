@@ -1,0 +1,43 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'java'
+}
+
+group = 'com.university'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.3")
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/org.web3j/core
+    implementation group: 'org.web3j', name: 'core', version: '5.0.0'
+    // https://mvnrepository.com/artifact/org.webjars.npm/openzeppelin__contracts
+    implementation group: 'org.webjars.npm', name: 'openzeppelin__contracts', version: '4.4.1'
+//    // https://mvnrepository.com/artifact/io.github.zinebfadili/pinata-java-sdk
+//    implementation group: 'io.github.zinebfadili', name: 'pinata-java-sdk', version: '2.1.0'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
